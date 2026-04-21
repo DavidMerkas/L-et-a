@@ -145,6 +145,17 @@ document.getElementById('footerYear').textContent = new Date().getFullYear();
 
 // ─── HELPERS ───────────────────────────────────────────────────────────────
 
+function dimFormatted(dim) {
+  var withoutUnit = dim.replace(/ m$/, '');
+  var parts = withoutUnit.split(' \u00d7 ');
+  if (parts.length === 3) {
+    return 'Du\u017e: ' + parts[0] + '\u00a0m \u00d7 Vis: ' + parts[1] + '\u00a0m \u00d7 \u0160ir: ' + parts[2] + '\u00a0m';
+  } else if (parts.length === 2) {
+    return 'Du\u017e: ' + parts[0] + '\u00a0m \u00d7 \u0160ir: ' + parts[1] + '\u00a0m';
+  }
+  return dim;
+}
+
 function imgs(city, id, count, special) {
   var base = 'images/dvorci/' + city + '/';
   function pad(n) { return String(n).padStart(2, '0'); }
@@ -296,7 +307,7 @@ function makeCard(d, city, index) {
       '<div class="catalog-meta">' +
         '<div class="catalog-meta-item">' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3zM3 12h2M19 12h2M12 3v2M12 19v2"/></svg>' +
-          d.dim +
+          dimFormatted(d.dim) +
         '</div>' +
         (d.paket ? '<div class="catalog-meta-item catalog-meta-paket">' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>' +
@@ -309,7 +320,7 @@ function makeCard(d, city, index) {
         '<span class="catalog-price-unit">&euro;</span>' +
       '</div>' +
       '<p class="catalog-price-sub">cjelodnevni najam</p>' +
-      '<a href="kontakt.html#' + cityClass + '" class="btn-catalog">Rezerviraj</a>' +
+      '<a href="kontakt.html?dvorac=' + cityClass + '-' + d.id + '#' + cityClass + '" class="btn-catalog">Rezerviraj</a>' +
     '</div>' +
   '</article>';
 }
@@ -339,6 +350,46 @@ document.addEventListener('click', function(e) {
     dot.classList.toggle('active', i === current);
   });
 }, true);
+
+// Touch swipe za slike dvoraca (samo touch uređaji)
+(function() {
+  var swipeStartX = 0;
+  var swipeStartY = 0;
+  var swipeTarget = null;
+
+  document.addEventListener('touchstart', function(e) {
+    swipeTarget = e.target.closest('.catalog-image');
+    if (!swipeTarget) return;
+    swipeStartX = e.touches[0].clientX;
+    swipeStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  document.addEventListener('touchend', function(e) {
+    if (!swipeTarget) return;
+    var dx = e.changedTouches[0].clientX - swipeStartX;
+    var dy = e.changedTouches[0].clientY - swipeStartY;
+    swipeTarget = null;
+
+    // Ignorirati vertikalni scroll i premali pomak
+    if (Math.abs(dx) < 40 || Math.abs(dy) > Math.abs(dx)) return;
+
+    var imageDiv = e.target.closest('.catalog-image');
+    if (!imageDiv) return;
+    var gallery = JSON.parse(imageDiv.dataset.gallery);
+    if (gallery.length <= 1) return;
+
+    var current = parseInt(imageDiv.dataset.current || 0, 10);
+    current = (current + (dx < 0 ? 1 : -1) + gallery.length) % gallery.length;
+    imageDiv.dataset.current = current;
+
+    var img = imageDiv.querySelector('img');
+    if (img) img.src = gallery[current];
+
+    imageDiv.querySelectorAll('.catalog-image-dots span').forEach(function(dot, i) {
+      dot.classList.toggle('active', i === current);
+    });
+  }, { passive: true });
+})();
 
 document.getElementById('countZagreb').textContent = ZAGREB.length + ' dvoraca';
 document.getElementById('countRijeka').textContent = RIJEKA.length + ' dvoraca';

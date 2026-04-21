@@ -41,6 +41,15 @@
 <section class="contact">
   <div class="section-inner">
 
+    <div class="selected-castle-notice" id="selectedCastleNotice" style="display:none">
+      <img class="scn-thumb" id="scnThumb" src="" alt="" />
+      <div class="scn-body">
+        <p class="scn-label">Odabrani dvorac:</p>
+        <p class="scn-name" id="scnName"></p>
+      </div>
+      <button class="scn-close" id="scnClose" aria-label="Zatvori obavijest">&#x2715;</button>
+    </div>
+
     <div class="city-sections-wrapper fade-up">
 
       <div class="city-section" id="cityZagreb">
@@ -65,10 +74,6 @@
               <span class="cac-label">Email Zagreb</span>
               <span class="cac-value">dvorci.laf.zagreb@gmail.com</span>
             </a>
-          </div>
-          <div class="contact-action-hours">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            <span>Radno vrijeme: <strong style="color:#fff">08:00–13:00</strong> i <strong style="color:#fff">16:00–21:00</strong></span>
           </div>
         </div>
         <div class="city-map-block">
@@ -104,10 +109,6 @@
               <span class="cac-label">Email Rijeka</span>
               <span class="cac-value">dvorci.laf.rijeka@gmail.com</span>
             </a>
-          </div>
-          <div class="contact-action-hours">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            <span>Radno vrijeme: <strong style="color:#fff">08:00–13:00</strong> i <strong style="color:#fff">16:00–21:00</strong></span>
           </div>
         </div>
         <div class="city-map-block">
@@ -256,6 +257,43 @@ function applyContactHash() {
 
 applyContactHash();
 window.addEventListener('hashchange', applyContactHash);
+
+// ─── ODABRANI DVORAC (iz URL parametra ?dvorac=grad-id) ────────────────────
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var dvoracParam = params.get('dvorac');
+  if (!dvoracParam) return;
+
+  var notice  = document.getElementById('selectedCastleNotice');
+  var nameEl  = document.getElementById('scnName');
+  var thumbEl = document.getElementById('scnThumb');
+  var closeBtn = document.getElementById('scnClose');
+  if (!notice) return;
+
+  var dashIdx  = dvoracParam.indexOf('-');
+  if (dashIdx === -1) return;
+  var city = dvoracParam.substring(0, dashIdx);
+  var id   = dvoracParam.substring(dashIdx + 1);
+  var cityName   = city === 'zagreb' ? 'Zagreb' : 'Rijeka';
+  var cityFolder = city === 'zagreb' ? 'Zagreb' : 'Rijeka';
+
+  var imgSrc;
+  if (city === 'rijeka' && id === '12') {
+    imgSrc = 'images/dvorci/Rijeka/dvorac_12_01_01.jpg';
+  } else {
+    imgSrc = 'images/dvorci/' + cityFolder + '/dvorac_' + id + '_01.jpg';
+  }
+
+  if (nameEl)  nameEl.textContent = 'Dvorac ' + id + ' \u00b7 ' + cityName;
+  if (thumbEl) { thumbEl.src = imgSrc; thumbEl.alt = 'Dvorac ' + id + ' ' + cityName; }
+  notice.style.display = 'flex';
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function() {
+      notice.style.display = 'none';
+    });
+  }
+})();
 </script>
 </body>
 </html>

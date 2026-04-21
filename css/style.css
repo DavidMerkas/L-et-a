@@ -482,11 +482,12 @@ section { padding: 90px 24px; position: relative; }
   margin-bottom: 18px;
 }
 .catalog-meta-item {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 0.88rem; font-weight: 700;
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 1rem; font-weight: 700;
   opacity: 0.95;
+  flex-wrap: wrap;
 }
-.catalog-meta-item svg { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.85; }
+.catalog-meta-item svg { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.85; margin-top: 2px; }
 .catalog-price-row {
   display: flex; align-items: baseline; gap: 6px;
   margin-bottom: 4px;
@@ -497,7 +498,7 @@ section { padding: 90px 24px; position: relative; }
   line-height: 1;
 }
 .catalog-price-unit { font-size: 1rem; font-weight: 600; opacity: 0.9; }
-.catalog-price-sub { font-size: 0.78rem; opacity: 0.85; font-weight: 700; margin-bottom: 18px; }
+.catalog-price-sub { font-size: 0.88rem; opacity: 0.85; font-weight: 700; margin-bottom: 18px; }
 .btn-catalog {
   display: block; text-align: center; text-decoration: none;
   background: rgba(255,255,255,0.25);
@@ -1841,13 +1842,29 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .contact-action-purple svg { color: #C4B5FD; }
 .contact-action-orange { background: rgba(249,115,22,0.22); }
 .contact-action-orange svg { color: #FED7AA; }
-.contact-action-hours {
-  display: flex; align-items: center; gap: 14px;
-  padding: 16px 20px; border-radius: var(--radius);
-  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.75); font-size: 0.93rem;
+.selected-castle-notice {
+  display: flex; align-items: center; gap: 16px;
+  background: rgba(124,58,237,0.18);
+  border: 1.5px solid rgba(124,58,237,0.4);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 32px;
 }
-.contact-action-hours svg { width: 20px; height: 20px; flex-shrink: 0; opacity: 0.5; }
+.scn-thumb {
+  width: 68px; height: 68px; border-radius: 12px;
+  object-fit: cover; flex-shrink: 0;
+  border: 2px solid rgba(124,58,237,0.45);
+}
+.scn-body { flex: 1; }
+.scn-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); margin: 0 0 4px; font-weight: 600; }
+.scn-name { font-size: 1.1rem; font-weight: 800; color: #fff; margin: 0; }
+.scn-close {
+  background: none; border: none; cursor: pointer;
+  color: rgba(255,255,255,0.45); font-size: 1.1rem;
+  padding: 4px 8px; border-radius: 8px;
+  transition: color 0.2s, background 0.2s; flex-shrink: 0;
+}
+.scn-close:hover { color: #fff; background: rgba(255,255,255,0.1); }
 .contact-action-note {
   font-size: 0.82rem; color: rgba(255,255,255,0.45);
   text-align: center; padding-top: 4px;
