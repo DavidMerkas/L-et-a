@@ -358,6 +358,11 @@ document.addEventListener('click', function(e) {
   var decided = false, isHoriz = false, ghostReady = false;
   var ghostOffset = 0, swipeDir = 0, nextIdx = -1;
 
+  function preload(src) {
+    var img = new Image();
+    img.src = src;
+  }
+
   function makeGhost(div, direction) {
     var gallery = JSON.parse(div.dataset.gallery);
     var current = parseInt(div.dataset.current || 0, 10);
@@ -398,6 +403,14 @@ document.addEventListener('click', function(e) {
     swipeDir  = 0;
     ghost     = null;
     if (origImg) origImg.style.transition = 'none';
+    // Preloadaj susjedne slike odmah pri dodiru
+    var gallery = JSON.parse(div.dataset.gallery);
+    var cur = parseInt(div.dataset.current || 0, 10);
+    var len = gallery.length;
+    if (len > 1) {
+      preload(gallery[(cur + 1) % len]);
+      preload(gallery[(cur - 1 + len) % len]);
+    }
   }, { passive: true });
 
   document.addEventListener('touchmove', function(e) {
@@ -453,19 +466,18 @@ document.addEventListener('click', function(e) {
 
     // Dovršeni swipe — animiraj obje slike do kraja
     var w    = div.offsetWidth;
-    var outX = swipeDir === 1 ? -w : w;
+    var outX = swipeDir === 1 ? -(w + 4) : (w + 4); // +4px buffer da rub ne viri
     var savedGhost = ghost;
     var savedNext  = nextIdx;
-    var gallery    = JSON.parse(div.dataset.gallery);
 
-    origImg.style.transition   = 'transform 0.22s ease';
-    origImg.style.transform    = 'translateX(' + outX + 'px)';
+    origImg.style.transition    = 'transform 0.22s ease';
+    origImg.style.transform     = 'translateX(' + outX + 'px)';
     savedGhost.style.transition = 'transform 0.22s ease';
     savedGhost.style.transform  = 'translateX(0)';
 
-    // Nakon animacije: postavi origImg na novu sliku, makni ghost
+    // Nakon animacije: kopiraj src S ghosta (već učitan = nema flasha), makni ghost
     setTimeout(function() {
-      origImg.src              = gallery[savedNext];
+      origImg.src              = savedGhost.src; // ghost.src je već u cache-u
       origImg.style.transition = 'none';
       origImg.style.transform  = '';
       if (savedGhost.parentNode) savedGhost.parentNode.removeChild(savedGhost);
