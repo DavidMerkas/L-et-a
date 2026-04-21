@@ -351,43 +351,57 @@ document.addEventListener('click', function(e) {
   });
 }, true);
 
-// Touch swipe za slike dvoraca — s vizualnim feedbackom
+// Touch swipe za slike dvoraca — obje slike side-by-side, nema gapa
 (function() {
   var startX = 0, startY = 0;
-  var target = null;
-  var decided = false, isHoriz = false;
+  var target = null, origImg = null, ghost = null;
+  var decided = false, isHoriz = false, ghostReady = false;
+  var ghostOffset = 0, swipeDir = 0, nextIdx = -1;
 
-  function changeImage(imageDiv, direction) {
-    var gallery = JSON.parse(imageDiv.dataset.gallery);
-    if (gallery.length <= 1) return;
-    var current = parseInt(imageDiv.dataset.current || 0, 10);
-    var next = (current + direction + gallery.length) % gallery.length;
-    imageDiv.dataset.current = next;
-    imageDiv.querySelectorAll('.catalog-image-dots span').forEach(function(d, i) {
-      d.classList.toggle('active', i === next);
-    });
-    return { next: next, gallery: gallery };
+  function makeGhost(div, direction) {
+    var gallery = JSON.parse(div.dataset.gallery);
+    var current = parseInt(div.dataset.current || 0, 10);
+    var w = div.offsetWidth;
+    nextIdx    = (current + direction + gallery.length) % gallery.length;
+    ghostOffset = direction === 1 ? w : -w;
+
+    var g = document.createElement('img');
+    g.src = gallery[nextIdx];
+    g.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;' +
+                      'object-fit:cover;z-index:1;transition:none;' +
+                      'transform:translateX(' + ghostOffset + 'px)';
+    div.appendChild(g);
+    return g;
   }
 
-  function restoreImg(img) {
-    img.style.transition = '';
-    img.style.transform  = '';
+  function removeGhost(div) {
+    if (ghost && ghost.parentNode === div) div.removeChild(ghost);
+    ghost = null; ghostReady = false; nextIdx = -1;
+  }
+
+  function resetOrigImg() {
+    if (!origImg) return;
+    origImg.style.transition = '';
+    origImg.style.transform  = '';
   }
 
   document.addEventListener('touchstart', function(e) {
     var div = e.target.closest('.catalog-image');
     if (!div) return;
-    target   = div;
-    startX   = e.touches[0].clientX;
-    startY   = e.touches[0].clientY;
-    decided  = false;
-    isHoriz  = false;
-    var img = div.querySelector('img');
-    if (img) img.style.transition = 'none';
+    target    = div;
+    origImg   = div.querySelector('img');
+    startX    = e.touches[0].clientX;
+    startY    = e.touches[0].clientY;
+    decided   = false;
+    isHoriz   = false;
+    ghostReady = false;
+    swipeDir  = 0;
+    ghost     = null;
+    if (origImg) origImg.style.transition = 'none';
   }, { passive: true });
 
   document.addEventListener('touchmove', function(e) {
-    if (!target) return;
+    if (!target || !origImg) return;
     var dx = e.touches[0].clientX - startX;
     var dy = e.touches[0].clientY - startY;
 
@@ -398,57 +412,72 @@ document.addEventListener('click', function(e) {
     if (!isHoriz) return;
     e.preventDefault();
 
-    var img = target.querySelector('img');
-    if (!img) return;
     var gallery = JSON.parse(target.dataset.gallery);
+    if (gallery.length <= 1) return;
+
+    // Kreiraj ghost na prvom horizontalnom pomaku, zabilježi smjer
+    if (!ghostReady) {
+      swipeDir   = dx < 0 ? 1 : -1;
+      ghost      = makeGhost(target, swipeDir);
+      ghostReady = true;
+    }
+
+    // Edge resistance — kraj galerije, al isti smjer kao i ghost
     var current = parseInt(target.dataset.current || 0, 10);
-    // Gumeni otpor na krajevima galerije
-    var atEdge = (current === 0 && dx > 0) || (current === gallery.length - 1 && dx < 0);
-    img.style.transform = 'translateX(' + (atEdge ? dx * 0.2 : dx) + 'px)';
+    var atEdge  = (current === 0 && dx > 0) || (current === gallery.length - 1 && dx < 0);
+
+    var move = atEdge ? dx * 0.2 : dx;
+    origImg.style.transform = 'translateX(' + move + 'px)';
+    ghost.style.transform   = 'translateX(' + (ghostOffset + move) + 'px)';
   }, { passive: false });
 
   document.addEventListener('touchend', function(e) {
-    if (!target) return;
-    var imageDiv = target;
-    target = null;
-    var img = imageDiv.querySelector('img');
-    var dx = e.changedTouches[0].clientX - startX;
+    if (!target || !origImg) return;
+    var div = target;
+    target  = null;
+    var dx  = e.changedTouches[0].clientX - startX;
 
-    // Snap-back ako nije horizontalni swipe ili premali
-    if (!isHoriz || Math.abs(dx) < 40) {
-      if (img) {
-        img.style.transition = 'transform 0.28s ease';
-        img.style.transform  = 'translateX(0)';
-        setTimeout(function() { restoreImg(img); }, 300);
+    // Snap-back
+    if (!isHoriz || Math.abs(dx) < 40 || !ghostReady) {
+      origImg.style.transition = 'transform 0.26s ease';
+      origImg.style.transform  = 'translateX(0)';
+      if (ghost) {
+        ghost.style.transition = 'transform 0.26s ease';
+        ghost.style.transform  = 'translateX(' + ghostOffset + 'px)';
       }
+      var snapGhost = ghost;
+      setTimeout(function() { removeGhost(div); resetOrigImg(); }, 280);
+      ghost = null;
       return;
     }
 
-    var direction = dx < 0 ? 1 : -1;
-    var result = changeImage(imageDiv, direction);
-    if (!result || !img) return;
+    // Dovršeni swipe — animiraj obje slike do kraja
+    var w    = div.offsetWidth;
+    var outX = swipeDir === 1 ? -w : w;
+    var savedGhost = ghost;
+    var savedNext  = nextIdx;
+    var gallery    = JSON.parse(div.dataset.gallery);
 
-    var w = imageDiv.offsetWidth;
-    var outX = dx < 0 ? -w : w;
+    origImg.style.transition   = 'transform 0.22s ease';
+    origImg.style.transform    = 'translateX(' + outX + 'px)';
+    savedGhost.style.transition = 'transform 0.22s ease';
+    savedGhost.style.transform  = 'translateX(0)';
 
-    // Slide-out trenutne
-    img.style.transition = 'transform 0.2s ease';
-    img.style.transform  = 'translateX(' + outX + 'px)';
-
+    // Nakon animacije: postavi origImg na novu sliku, makni ghost
     setTimeout(function() {
-      // Postavi novu sliku na suprotnu stranu (bez animacije)
-      img.style.transition = 'none';
-      img.src = result.gallery[result.next];
-      img.style.transform = 'translateX(' + (-outX) + 'px)';
-      // Slide-in
-      requestAnimationFrame(function() {
-        requestAnimationFrame(function() {
-          img.style.transition = 'transform 0.2s ease';
-          img.style.transform  = 'translateX(0)';
-          setTimeout(function() { restoreImg(img); }, 220);
-        });
-      });
-    }, 210);
+      origImg.src              = gallery[savedNext];
+      origImg.style.transition = 'none';
+      origImg.style.transform  = '';
+      if (savedGhost.parentNode) savedGhost.parentNode.removeChild(savedGhost);
+      ghost = null; ghostReady = false; nextIdx = -1;
+      setTimeout(function() { origImg.style.transition = ''; }, 30);
+    }, 230);
+
+    // Ažuriraj stanje
+    div.dataset.current = savedNext;
+    div.querySelectorAll('.catalog-image-dots span').forEach(function(d, i) {
+      d.classList.toggle('active', i === savedNext);
+    });
   }, { passive: true });
 })();
 
