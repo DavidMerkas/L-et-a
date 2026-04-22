@@ -47,7 +47,6 @@
         <p class="scn-label">Odabrani dvorac:</p>
         <p class="scn-name" id="scnName"></p>
       </div>
-      <button class="scn-close" id="scnClose" aria-label="Zatvori obavijest">&#x2715;</button>
     </div>
 
     <div class="city-sections-wrapper fade-up">
@@ -267,7 +266,6 @@ window.addEventListener('hashchange', applyContactHash);
   var notice  = document.getElementById('selectedCastleNotice');
   var nameEl  = document.getElementById('scnName');
   var thumbEl = document.getElementById('scnThumb');
-  var closeBtn = document.getElementById('scnClose');
   if (!notice) return;
 
   var dashIdx  = dvoracParam.indexOf('-');
@@ -287,12 +285,6 @@ window.addEventListener('hashchange', applyContactHash);
   if (nameEl)  nameEl.textContent = 'Dvorac ' + id + ' \u00b7 ' + cityName;
   if (thumbEl) { thumbEl.src = imgSrc; thumbEl.alt = 'Dvorac ' + id + ' ' + cityName; }
   notice.style.display = 'flex';
-
-  if (closeBtn) {
-    closeBtn.addEventListener('click', function() {
-      notice.style.display = 'none';
-    });
-  }
 })();
 </script>
 </body>
