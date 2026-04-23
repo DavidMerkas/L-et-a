@@ -291,12 +291,12 @@ function makeCard(d, city, index) {
   }
 
   return '<article class="catalog-card fade-up" data-tags="' + tagsStr + '">' +
-    '<div class="catalog-image" data-gallery="' + galleryAttr + '" data-current="0" onclick=\'window.lbOpen(' + galleryJSON + ', "' + title + '", parseInt(this.dataset.current||0))\'>' +
+    '<div class="catalog-image" data-gallery="' + galleryAttr + '" data-current="0" onclick=\'window.lbOpen(JSON.parse(this.dataset.gallery), "' + title + '", parseInt(this.dataset.current||0))\'>' +
       '<img src="' + thumb + '" alt="Dvorac ' + d.id + ' - ' + city + '" loading="' + loadingAttr + '" onload="this.parentNode.classList.add(&#39;loaded&#39;)" onerror="this.parentNode.classList.add(&#39;loaded&#39;)" />' +
       badgeHtml +
       navHtml +
       dotsHtml +
-      '<button class="gallery-btn" onclick=\'event.stopPropagation(); window.lbOpen(' + galleryJSON + ', "' + title + '", parseInt(this.parentNode.dataset.current||0))\' aria-label="Otvori galeriju">' +
+      '<button class="gallery-btn" onclick=\'event.stopPropagation(); window.lbOpen(JSON.parse(this.parentNode.dataset.gallery), "' + title + '", parseInt(this.parentNode.dataset.current||0))\' aria-label="Otvori galeriju">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>' +
         '<span class="gallery-count">' + count + ' foto</span>' +
       '</button>' +
