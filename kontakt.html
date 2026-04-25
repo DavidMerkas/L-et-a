@@ -4,8 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Kontakt — L-et-A dvorci na napuhavanje</title>
-<meta name="description" content="Kontaktirajte L-et-A za rezervaciju dvoraca na napuhavanje u Zagrebu ili Rijeci. Nazovite nas ili pošaljite email — odgovaramo brzo." />
-<meta name="keywords" content="kontakt napuhanci, rezervacija dvorac napuhavanje, telefon napuhanci Zagreb, napuhanci Rijeka kontakt, najam dvoraca" />
+<meta name="description" content="Kontakt L-et-A — rezervacija dvoraca na napuhavanje u Zagrebu i Rijeci. Pošaljite upit ili nazovite za najam dvorca, brzu potvrdu i dogovor termina. Najam dvoraca za rođendane, proslave i priredbe." />
+<meta name="keywords" content="kontakt dvorci, kontakt dvorci na napuhavanje, kontakt napuhanci, rezervacija dvorca, rezervacija dvoraca, rezerviraj dvorac, dogovor dvorca, dogovori dvorac, dvorci kontakt, dvorci telefon, dvorci email, najam dvorca Zagreb, najam dvorca Rijeka, najam dvoraca Zagreb, najam dvoraca Rijeka, iznajmi dvorac, iznajmi dvorac Zagreb, iznajmi dvorac Rijeka, dvorci Zagreb kontakt, dvorci Rijeka kontakt, dvorci za rođendan kontakt, dvorci za proslavu kontakt, kontakt napuhanci Zagreb, kontakt napuhanci Rijeka, telefon dvorci, broj telefona dvorci, dvorci adresa, lokacija dvoraca, samopreuzimanje dvorca, L-et-A kontakt, LAF kontakt, dvorci na napuhavanje rezervacija" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap&subset=latin-ext" rel="stylesheet">
@@ -35,12 +35,6 @@
     </a>
     <h1>Javite nam <span class="accent">se</span></h1>
     <p>Rezervirajte dvorac ili nas pitajte bilo što — odgovaramo brzo.</p>
-  </div>
-</header>
-
-<section class="contact">
-  <div class="section-inner">
-
     <div class="selected-castle-notice" id="selectedCastleNotice" style="display:none">
       <img class="scn-thumb" id="scnThumb" src="" alt="" />
       <div class="scn-body">
@@ -48,6 +42,11 @@
         <p class="scn-name" id="scnName"></p>
       </div>
     </div>
+  </div>
+</header>
+
+<section class="contact">
+  <div class="section-inner">
 
     <div class="city-sections-wrapper fade-up">
 
@@ -59,7 +58,7 @@
             </div>
             <div>
               <h2>Zagreb</h2>
-              <p>Zagreb i okolica</p>
+              <p>Zagreb i okolne županije</p>
             </div>
           </div>
           <div class="contact-action-grid">
@@ -94,7 +93,7 @@
             </div>
             <div>
               <h2>Rijeka</h2>
-              <p>Rijeka i okolica</p>
+              <p>Rijeka i okolne županije</p>
             </div>
           </div>
           <div class="contact-action-grid">
@@ -115,7 +114,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             Rijeka — lokacija preuzimanja
           </h3>
-          <iframe class="map-embed" src="https://maps.google.com/maps?q=Korzo+1,+51000+Rijeka,+Hrvatska&output=embed&z=16" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="Rijeka — lokacija preuzimanja"></iframe>
+          <iframe class="map-embed" src="https://maps.google.com/maps?q=Su%C5%A1i%C4%8Dka+ul.+45A%2C+51218+Dra%C5%BEice%2C+Hrvatska&output=embed&z=16" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="Rijeka — lokacija preuzimanja"></iframe>
         </div>
       </div>
 
@@ -252,6 +251,16 @@ function applyContactHash() {
     if (h1)  h1.innerHTML    = 'Javite nam <span class="accent">se</span> — Rijeka';
     if (sub) sub.textContent = 'Rezervirajte dvorac u Rijeci ili nas pitajte bilo što.';
   }
+
+  // Ako je odabrani dvorac vidljiv, sakrij h1/p (notice ih zamjenjuje)
+  var notice = document.getElementById('selectedCastleNotice');
+  if (notice && notice.style.display !== 'none' && notice.style.display !== '') {
+    if (h1)  h1.style.display  = 'none';
+    if (sub) sub.style.display = 'none';
+  } else {
+    if (h1)  h1.style.display  = '';
+    if (sub) sub.style.display = '';
+  }
 }
 
 applyContactHash();
@@ -285,6 +294,12 @@ window.addEventListener('hashchange', applyContactHash);
   if (nameEl)  nameEl.textContent = 'Dvorac ' + id + ' \u00b7 ' + cityName;
   if (thumbEl) { thumbEl.src = imgSrc; thumbEl.alt = 'Dvorac ' + id + ' ' + cityName; }
   notice.style.display = 'flex';
+
+  // Sakrij naslov i podnaslov, notice ih zamjenjuje
+  var h1  = document.querySelector('.page-header h1');
+  var sub = document.querySelector('.page-header p');
+  if (h1)  h1.style.display  = 'none';
+  if (sub) sub.style.display = 'none';
 })();
 </script>
 </body>

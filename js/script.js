@@ -103,8 +103,16 @@ document.addEventListener('DOMContentLoaded', function () {
   function applyFilter(filter) {
     const cards = document.querySelectorAll('.catalog-card[data-tags]');
     let totalVisible = 0;
+    let cityTotal = 0; // Ukupno kartica u trenutno VIDLJIVIM city sekcijama
 
     cards.forEach(card => {
+      const citySection = card.closest('.city-section');
+      const cityHidden = citySection && citySection.style.display === 'none';
+      if (cityHidden) {
+        card.style.display = 'none';
+        return;
+      }
+      cityTotal++;
       const tags = card.dataset.tags.split(' ');
       const show = filter === 'all' || tags.includes(filter);
       card.style.display = show ? '' : 'none';
@@ -114,10 +122,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Update count bar
     const countEl = document.getElementById('catalogCount');
     if (countEl) {
-      const total = cards.length;
       countEl.innerHTML = filter === 'all'
-        ? `<strong>${total}</strong> dvoraca`
-        : `<strong>${totalVisible}</strong> od ${total} dvoraca`;
+        ? `<strong>${cityTotal}</strong> dvoraca`
+        : `<strong>${totalVisible}</strong> od ${cityTotal} dvoraca`;
     }
 
     // Show/hide city section headers if they exist

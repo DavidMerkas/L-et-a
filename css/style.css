@@ -125,7 +125,7 @@ a { color: inherit; }
 
 /* ─── HERO ─── */
 .hero {
-  min-height: 100vh;
+  min-height: 88vh;
   background:
     radial-gradient(ellipse at top left, rgba(167,139,250,0.25), transparent 50%),
     radial-gradient(ellipse at bottom right, rgba(252,211,77,0.3), transparent 50%),
@@ -221,8 +221,13 @@ a { color: inherit; }
 .btn-secondary:active { transform: translateY(2px); box-shadow: 0 3px 0 var(--orange-d), 0 4px 16px rgba(249,115,22,0.3); }
 
 .hero-stats {
-  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 14px;
   margin-top: 52px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .stat-pill {
   background: #fff;
@@ -314,7 +319,7 @@ a { color: inherit; }
 .breadcrumb a { text-decoration: none; color: var(--purple); }
 
 /* ─── SECTION COMMON ─── */
-section { padding: 90px 24px; position: relative; }
+section { padding: 76px 24px; position: relative; }
 .section-inner { max-width: 1140px; margin: 0 auto; position: relative; z-index: 2; }
 .section-tag {
   display: inline-flex; align-items: center; gap: 8px;
@@ -1358,7 +1363,7 @@ section { padding: 90px 24px; position: relative; }
 }
 
 @media (max-width: 768px) {
-  section { padding: 70px 20px; }
+  section { padding: 60px 20px; }
   .nav-links { display: none; }
   .nav-links.open {
     display: flex; flex-direction: column; gap: 8px; align-items: stretch;
@@ -1393,7 +1398,7 @@ section { padding: 90px 24px; position: relative; }
   .page-header { padding: 120px 16px 50px; }
   .hero-btns { flex-direction: column; align-items: stretch; }
   .btn-primary, .btn-secondary { width: 100%; justify-content: center; font-size: 1rem; padding: 15px 20px; }
-  .hero-stats { flex-direction: column; align-items: stretch; }
+  .hero-stats { grid-template-columns: 1fr; }
   .stat-pill { justify-content: flex-start; }
   .hiw-card, .why-card { padding: 36px 22px 28px; }
   .area-card { padding: 28px 22px; }
@@ -1741,9 +1746,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .hero-layout .hero-btns { justify-content: flex-start; }
 .hero-layout .hero-stats { justify-content: flex-start; }
 .hero-imgs {
-  flex: 0 0 520px;
+  flex: 0 0 580px;
   position: relative;
-  height: 560px;
+  height: 620px;
+  transform: translateX(40px);
 }
 .hero-img-stack { position: relative; width: 100%; height: 100%; }
 .hero-img {
@@ -1754,22 +1760,22 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   transition: transform 0.4s ease;
 }
 .hero-img-left {
-  width: 260px; height: 340px;
-  left: -10px; top: 70px;
+  width: 290px; height: 380px;
+  left: -10px; top: 80px;
   transform: rotate(-8deg);
   box-shadow: 0 14px 40px rgba(0,0,0,0.16);
   z-index: 1;
 }
 .hero-img-center {
-  width: 300px; height: 390px;
+  width: 335px; height: 435px;
   left: 50%; top: 50%;
   transform: translate(-50%, -50%);
   box-shadow: 0 20px 56px rgba(0,0,0,0.24);
   z-index: 3;
 }
 .hero-img-right {
-  width: 260px; height: 340px;
-  right: -10px; top: 70px;
+  width: 290px; height: 380px;
+  right: -10px; top: 80px;
   transform: rotate(8deg);
   box-shadow: 0 14px 40px rgba(0,0,0,0.16);
   z-index: 1;
@@ -1865,6 +1871,41 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   transition: color 0.2s, background 0.2s; flex-shrink: 0;
 }
 .scn-close:hover { color: #fff; background: rgba(255,255,255,0.1); }
+
+/* Notice u svijetlom page-header — claymorphism stil */
+.page-header .selected-castle-notice {
+  background: #fff;
+  border: none;
+  border-radius: 22px;
+  margin: 0 auto;
+  max-width: 560px;
+  padding: 22px 26px;
+  text-align: left;
+  gap: 20px;
+  box-shadow:
+    0 18px 44px rgba(124,58,237,0.18),
+    0 6px 14px rgba(0,0,0,0.06);
+}
+.page-header .scn-thumb {
+  width: 84px; height: 84px;
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 5px 14px rgba(124,58,237,0.22);
+}
+.page-header .scn-label {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+.page-header .scn-name {
+  color: var(--text);
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
 .contact-action-note {
   font-size: 0.82rem; color: rgba(255,255,255,0.45);
   text-align: center; padding-top: 4px;
@@ -2051,7 +2092,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* ─── HOW TO BOOK SECTION (kontakt.html) ─── */
 .contact-how-section {
-  padding: 72px 24px;
+  padding: 60px 24px;
   background: var(--bg);
 }
 .contact-how-section .section-inner { max-width: 960px; margin: 0 auto; }

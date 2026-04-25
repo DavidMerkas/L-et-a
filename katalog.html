@@ -4,8 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Katalog dvoraca — L-et-A dvorci na napuhavanje</title>
-<meta name="description" content="Katalog dvoraca na napuhavanje — više od 30 modela za Zagreb i Rijeku. Filtrirajte po uzrastu i pronađite savršeni dvorac za rođendan vašeg djeteta." />
-<meta name="keywords" content="dvorci na napuhavanje katalog, napuhanci Zagreb, napuhanci Rijeka, najam dvoraca, dvorac za rođendan, zabava za djecu" />
+<meta name="description" content="Katalog dvoraca na napuhavanje — više od 50 dvoraca za Zagreb i Rijeku. Pregledajte sve dvorce po uzrastu i pronađite savršeni dvorac za rođendan, proslavu ili priredbu vašeg djeteta. Veliki izbor dvoraca svih veličina." />
+<meta name="keywords" content="katalog dvoraca, katalog dvoraca na napuhavanje, popis dvoraca, izbor dvoraca, svi dvorci, ponuda dvoraca, dvorci, dvorac, dvoraca, dvorci na napuhavanje, dvorci Zagreb, dvorci Rijeka, dvorci u Zagrebu, dvorci u Rijeci, dvorci za rođendan, dvorci za rođendane, dvorci za djecu, dvorci za dječji rođendan, dvorci za proslavu, dvorci za priredbu, dvorci za zabavu, dvorci s bazenom, dvorci s toboganom, veliki dvorci, mali dvorci, dvorci za maleniše, dvorci za starije, dječji dvorci, povoljni dvorci, najam dvoraca, iznajmljivanje dvoraca, najam dvorca, najam dvoraca Zagreb, najam dvoraca Rijeka, iznajmljivanje dvoraca Zagreb, iznajmljivanje dvoraca Rijeka, dvorci po uzrastu, dvorci dimenzije, cijene dvoraca, napuhanci katalog, napuhanci Zagreb, napuhanci Rijeka, napuhanac Zagreb, napuhanac Rijeka" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap&subset=latin-ext" rel="stylesheet">
@@ -45,9 +45,11 @@
 
     <div class="catalog-filters" id="filterChips" role="group" aria-label="Filtriraj dvorce">
       <button class="filter-chip active" data-filter="all">Svi uzrasti</button>
+      <button class="filter-chip" data-filter="malisani">Mališani (2–3 god.)</button>
       <button class="filter-chip" data-filter="do8">do 8 god.</button>
       <button class="filter-chip" data-filter="stariji">do 11 god.</button>
-      <button class="filter-chip" data-filter="malisani">Mališani (2–3 god.)</button>
+      <button class="filter-chip" data-filter="do12">do 12 god.</button>
+      <button class="filter-chip" data-filter="do15">do 15 god.</button>
     </div>
 
     <p class="catalog-count-bar" id="catalogCount"></p>
@@ -149,9 +151,9 @@ function dimFormatted(dim) {
   var withoutUnit = dim.replace(/ m$/, '');
   var parts = withoutUnit.split(' \u00d7 ');
   if (parts.length === 3) {
-    return 'Du\u017e: ' + parts[0] + '\u00a0m \u00d7 Vis: ' + parts[1] + '\u00a0m \u00d7 \u0160ir: ' + parts[2] + '\u00a0m';
+    return '\u0160ir: ' + parts[0] + '\u00a0m \u00d7 Du\u017e: ' + parts[1] + '\u00a0m \u00d7 Vis: ' + parts[2] + '\u00a0m';
   } else if (parts.length === 2) {
-    return 'Du\u017e: ' + parts[0] + '\u00a0m \u00d7 \u0160ir: ' + parts[1] + '\u00a0m';
+    return '\u0160ir: ' + parts[0] + '\u00a0m \u00d7 Du\u017e: ' + parts[1] + '\u00a0m';
   }
   return dim;
 }
@@ -183,7 +185,6 @@ var ZAGREB = [
   { id:'08', cijena:65,  dim:'4 × 5 × 4 m',         dob:11, gallery:imgs('Zagreb','08',4), tags:['zagreb','stariji'] },
   { id:'09', cijena:60,  dim:'4,2 × 5,2 × 3 m',     dob:8,  gallery:imgs('Zagreb','09',4), tags:['zagreb','do8'] },
   { id:'10', cijena:50,  dim:'4,2 × 5 × 4,3 m',     dob:8,  gallery:imgs('Zagreb','10',6), tags:['zagreb','do8'] },
-  { id:'11', cijena:50,  dim:'3,8 × 5 × 2,4 m',     dob:8,  gallery:imgs('Zagreb','11',6), tags:['zagreb','do8'] },
   { id:'12', cijena:65,  dim:'4,1 × 5,5 × 2,8 m',   dob:8,  gallery:imgs('Zagreb','12',4), tags:['zagreb','do8'] },
   { id:'13', cijena:60,  dim:'5,1 × 4,1 × 4 m',     dob:11, gallery:imgs('Zagreb','13',4), tags:['zagreb','stariji'] },
   { id:'14', cijena:45,  dim:'4,2 × 3,9 × 3,1 m',   dob:8,  gallery:imgs('Zagreb','14',6), tags:['zagreb','do8'] },
@@ -195,12 +196,10 @@ var ZAGREB = [
   { id:'22', cijena:60,  dim:'3,9 × 4,5 × 4,1 m',   dob:10, gallery:imgs('Zagreb','22',4), tags:['zagreb','stariji'] },
   { id:'24', cijena:65,  dim:'4,7 × 5 × 3,9 m',     dob:10, gallery:imgs('Zagreb','24',4), tags:['zagreb','stariji'] },
   { id:'25', cijena:65,  dim:'6,45 × 6,15 × 4,5 m', dob:8,  gallery:imgs('Zagreb','25',6), tags:['zagreb','do8'], badge:'Velik', paket:'1,5 × 1 m' },
-  { id:'26', cijena:50,  dim:'3 × 5,9 × 3,15 m',    dob:8,  gallery:imgs('Zagreb','26',3), tags:['zagreb','do8','bazen'], badge:'S bazenom' },
   { id:'27', cijena:50,  dim:'5,1 × 4 × 3 m',       dob:8,  gallery:imgs('Zagreb','27',4), tags:['zagreb','do8'] },
   { id:'28', cijena:50,  dim:'2,9 × 5 × 3 m',       dob:8,  gallery:imgs('Zagreb','28',4), tags:['zagreb','do8'] },
   { id:'29', cijena:50,  dim:'3 × 6 × 3,5 m',       dob:8,  gallery:imgs('Zagreb','29',4), tags:['zagreb','do8'] },
   { id:'30', cijena:50,  dim:'4,7 × 4 × 3,8 m',     dob:10, gallery:imgs('Zagreb','30',4), tags:['zagreb','stariji'] },
-  { id:'32', cijena:60,  dim:'4,7 × 4 × 4 m',       dob:11, gallery:imgs('Zagreb','32',4), tags:['zagreb','stariji'] },
   { id:'33', cijena:60,  dim:'4,7 × 4 × 3 m',       dob:10, gallery:imgs('Zagreb','33',4), tags:['zagreb','stariji'] },
   { id:'34', cijena:50,  dim:'4,5 × 4 × 2,6 m',     dob:8,  gallery:imgs('Zagreb','34',4), tags:['zagreb','do8'] },
   { id:'35', cijena:60,  dim:'3,7 × 5,9 × 2,6 m',   dob:8,  gallery:imgs('Zagreb','35',4), tags:['zagreb','do8'] },
@@ -218,12 +217,12 @@ var RIJEKA = [
   { id:'05', cijena:40,  dim:'3,3 × 5 × 2,4 m',     dob:null, gallery:imgs('Rijeka','05',6), tags:['rijeka'], paket:'1,55 × 0,5 m' },
   { id:'06', cijena:30,  dim:'4,2 × 4,7 × 2,95 m',  dob:null, gallery:imgs('Rijeka','06',6), tags:['rijeka'], paket:'1,4 × 0,6 m' },
   { id:'07', cijena:50,  dim:'3,5 × 4,5 × 3,2 m',   dob:null, gallery:imgs('Rijeka','07',4), tags:['rijeka'], paket:'1,5 × 0,5 m' },
-  { id:'08', cijena:100, dim:'7 × 4 × 6,2 m',       dob:12,   gallery:imgs('Rijeka','08',4), tags:['rijeka','stariji','novo'], badge:'Novo' },
+  { id:'08', cijena:100, dim:'7 × 4 × 6,2 m',       dob:12,   gallery:imgs('Rijeka','08',4), tags:['rijeka','do12','novo'], badge:'Novo' },
   { id:'09', cijena:60,  dim:'5,2 × 5,2 × 4,5 m',   dob:null, gallery:imgs('Rijeka','09',3), tags:['rijeka'], paket:'1,7 × 0,9 m' },
   { id:'10', cijena:60,  dim:'5,2 × 5,2 × 4,5 m',   dob:11,   gallery:imgs('Rijeka','10',4), tags:['rijeka','stariji'], paket:'1,7 × 0,9 m' },
   { id:'11', cijena:60,  dim:'5,5 × 5 × 4 m',       dob:11,   gallery:imgs('Rijeka','11',3), tags:['rijeka','stariji'], paket:'1,8 × 0,9 m' },
   { id:'12', cijena:50,  dim:'4,7 × 4 × 3,4 m',     dob:null, gallery:imgs('Rijeka','12',4,true), tags:['rijeka'] },
-  { id:'13', cijena:100, dim:'8,2 × 4,2 × 5 m',     dob:15,   gallery:imgs('Rijeka','13',3), tags:['rijeka','stariji'], badge:'Najveći' },
+  { id:'13', cijena:100, dim:'8,2 × 4,2 × 5 m',     dob:15,   gallery:imgs('Rijeka','13',3), tags:['rijeka','do15'], badge:'Najveći' },
   { id:'14', cijena:70,  dim:'5 × 5 × 2,9 m',       dob:11,   gallery:imgs('Rijeka','14',4), tags:['rijeka','stariji','novo'], badge:'Novo' },
   { id:'15', cijena:50,  dim:'4 × 5 m',             dob:null, gallery:imgs('Rijeka','15',4), tags:['rijeka'], paket:'1,5 × 0,9 m' },
   { id:'16', cijena:60,  dim:'5 × 4,5 × 3,5 m',     dob:11,   gallery:imgs('Rijeka','16',4), tags:['rijeka','stariji'] },
@@ -569,6 +568,30 @@ function applyCityHash() {
   var allChip = document.querySelector('.filter-chip[data-filter="all"]');
   if (allChip) allChip.classList.add('active');
   if (window.applyFilter) window.applyFilter('all');
+
+  // Sakrij chipove koji nemaju dvoraca u trenutnom gradu
+  var chip12       = document.querySelector('.filter-chip[data-filter="do12"]');
+  var chip15       = document.querySelector('.filter-chip[data-filter="do15"]');
+  var chipMalisani = document.querySelector('.filter-chip[data-filter="malisani"]');
+  var chipDo8      = document.querySelector('.filter-chip[data-filter="do8"]');
+
+  // Zagreb nema do12/do15
+  var hideOnZagreb = (hash === 'zagreb');
+  if (chip12) chip12.style.display = hideOnZagreb ? 'none' : '';
+  if (chip15) chip15.style.display = hideOnZagreb ? 'none' : '';
+
+  // Rijeka nema malisani/do8
+  var hideOnRijeka = (hash === 'rijeka');
+  if (chipMalisani) chipMalisani.style.display = hideOnRijeka ? 'none' : '';
+  if (chipDo8)      chipDo8.style.display      = hideOnRijeka ? 'none' : '';
+
+  // CTA "Kontaktiraj nas" na dnu prati grad kojeg gleda
+  var ctaContact = document.querySelector('.catalog-cta a.btn-primary');
+  if (ctaContact) {
+    if (hash === 'zagreb')      ctaContact.href = 'kontakt.html#zagreb';
+    else if (hash === 'rijeka') ctaContact.href = 'kontakt.html#rijeka';
+    else                         ctaContact.href = 'kontakt.html';
+  }
 
   if (hash === 'zagreb' || hash === 'rijeka') {
     // Hide the other city section
