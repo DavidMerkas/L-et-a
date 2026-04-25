@@ -102,12 +102,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function applyFilter(filter) {
     const cards = document.querySelectorAll('.catalog-card[data-tags]');
+    const hash  = (window.location.hash.replace('#', '') || '').toLowerCase();
+    const cityActive = (hash === 'zagreb' || hash === 'rijeka') ? hash : null;
     let totalVisible = 0;
-    let cityTotal = 0; // Ukupno kartica u trenutno VIDLJIVIM city sekcijama
+    let cityTotal = 0; // Ukupno kartica u trenutno aktivnom gradu
 
     cards.forEach(card => {
       const citySection = card.closest('.city-section');
-      const cityHidden = citySection && citySection.style.display === 'none';
+      const cardCity    = citySection && citySection.dataset.city;
+      const cityHidden  = cityActive && cardCity && cardCity !== cityActive;
       if (cityHidden) {
         card.style.display = 'none';
         return;

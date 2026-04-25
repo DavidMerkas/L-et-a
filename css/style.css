@@ -1906,6 +1906,25 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-weight: 800;
   line-height: 1.2;
 }
+@media (max-width: 600px) {
+  .page-header .selected-castle-notice {
+    max-width: 100%;
+    padding: 14px 16px;
+    gap: 14px;
+    border-radius: 18px;
+  }
+  .page-header .scn-thumb {
+    width: 58px; height: 58px;
+    border-radius: 12px;
+  }
+  .page-header .scn-label {
+    font-size: 0.68rem;
+    margin-bottom: 3px;
+  }
+  .page-header .scn-name {
+    font-size: 1rem;
+  }
+}
 .contact-action-note {
   font-size: 0.82rem; color: rgba(255,255,255,0.45);
   text-align: center; padding-top: 4px;
