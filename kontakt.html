@@ -29,10 +29,16 @@
 
 <header class="page-header">
   <div class="page-header-inner">
-    <a href="index.html" class="breadcrumb">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-      Natrag na početnu
-    </a>
+    <div class="breadcrumb-row">
+      <a href="index.html" class="breadcrumb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        Natrag na početnu
+      </a>
+      <a href="#" class="breadcrumb" id="catalogBreadcrumb" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        <span id="catalogBreadcrumbText">Natrag na dvorce</span>
+      </a>
+    </div>
     <h1>Javite nam <span class="accent">se</span></h1>
     <p>Rezervirajte dvorac ili nas pitajte bilo što — odgovaramo brzo.</p>
     <div class="selected-castle-notice" id="selectedCastleNotice" style="display:none">
@@ -300,6 +306,15 @@ window.addEventListener('hashchange', applyContactHash);
   var sub = document.querySelector('.page-header p');
   if (h1)  h1.style.display  = 'none';
   if (sub) sub.style.display = 'none';
+
+  // Prika\u017ei drugi breadcrumb "Natrag na Dvorci Zagreb/Rijeka"
+  var catalogBc     = document.getElementById('catalogBreadcrumb');
+  var catalogBcText = document.getElementById('catalogBreadcrumbText');
+  if (catalogBc && catalogBcText) {
+    catalogBc.href = 'katalog.html#' + city;
+    catalogBcText.textContent = 'Natrag na Dvorci ' + cityName;
+    catalogBc.style.display = '';
+  }
 })();
 </script>
 </body>

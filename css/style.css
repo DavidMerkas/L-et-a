@@ -328,9 +328,32 @@ a { color: inherit; }
   box-shadow: 0 6px 20px rgba(252,211,77,0.4);
   margin-bottom: 22px;
   text-decoration: none;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
 }
-.breadcrumb svg { width: 14px; height: 14px; color: var(--purple); }
+.breadcrumb:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(252,211,77,0.55);
+  background: #FFFBEB;
+}
+.breadcrumb:active {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(252,211,77,0.4);
+}
+.breadcrumb svg {
+  width: 14px; height: 14px; color: var(--purple);
+  transition: transform 0.22s ease;
+}
+.breadcrumb:hover svg { transform: translateX(-4px); }
 .breadcrumb a { text-decoration: none; color: var(--purple); }
+.breadcrumb-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.breadcrumb-row .breadcrumb { margin-bottom: 0; }
 
 /* ─── SECTION COMMON ─── */
 section { padding: 76px 24px; position: relative; }
