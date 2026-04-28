@@ -4,7 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  // ─── NAVBAR scroll
+  // ─── NAVBAR pri scrollu
   const navbar = document.getElementById('navbar');
   if (navbar) {
     window.addEventListener('scroll', () => {
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }, { passive: true });
   }
 
-  // ─── HAMBURGER menu
+  // ─── HAMBURGER izbornik
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
   if (hamburger && navLinks) {
@@ -38,14 +38,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ─── HIDE "Rezerviraj" btn-nav on kontakt.html
-  const isKontakt = window.location.pathname.endsWith('kontakt.html');
-  if (isKontakt) {
-    const rezervirajBtn = document.querySelector('.nav-links .btn-nav');
-    if (rezervirajBtn) rezervirajBtn.closest('li').style.display = 'none';
+  // ─── Sakrij gumb "Kontaktiraj nas" u navbaru na kontakt stranicama
+  const path = window.location.pathname;
+  const isKontaktPage = path.endsWith('kontakt.html')
+                     || path.endsWith('kontakt-zagreb.html')
+                     || path.endsWith('kontakt-rijeka.html');
+  if (isKontaktPage) {
+    const kontaktBtn = document.querySelector('.nav-links .btn-nav');
+    if (kontaktBtn) kontaktBtn.closest('li').style.display = 'none';
   }
 
-  // ─── FADE-IN on scroll
+  // ─── Fade-in elemenata pri scrollanju
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -59,10 +62,10 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.fade-up:not(.visible)').forEach(el => observer.observe(el));
   }
   observeFadeUps();
-  // Re-run after dynamic catalog renders (katalog.html calls this)
+  // Pokreće se ponovno nakon dinamičkog renderiranja kartica (dvorci-zagreb/rijeka)
   window.observeFadeUps = observeFadeUps;
 
-  // ─── CONTACT FORM submit
+  // ─── Slanje kontakt forme
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
@@ -86,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ─── CATALOG FILTERS (works with both static and JS-rendered cards)
+  // ─── Filteri kataloga (radi i na statičkim i na JS-renderiranim karticama)
   function initCatalogFilters() {
     const filterChips = document.querySelectorAll('.filter-chip');
     if (!filterChips.length) return;
@@ -102,7 +105,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function applyFilter(filter) {
     const cards = document.querySelectorAll('.catalog-card[data-tags]');
-    const hash  = (window.location.hash.replace('#', '') || '').toLowerCase();
+    // Ako body ima data-city (zasebne stranice), koristi to; inače čitaj hash
+    const forcedCity = document.body.dataset.city;
+    const hash = (forcedCity || window.location.hash.replace('#', '') || '').toLowerCase();
     const cityActive = (hash === 'zagreb' || hash === 'rijeka') ? hash : null;
     let totalVisible = 0;
     let cityTotal = 0; // Ukupno kartica u trenutno aktivnom gradu
@@ -122,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (show) totalVisible++;
     });
 
-    // Update count bar
+    // Ažuriraj traku s brojem dvoraca
     const countEl = document.getElementById('catalogCount');
     if (countEl) {
       countEl.innerHTML = filter === 'all'
@@ -130,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
         : `<strong>${totalVisible}</strong> od ${cityTotal} dvoraca`;
     }
 
-    // Show/hide city section headers if they exist
+    // Prikaži / sakrij zaglavlja gradskih sekcija ovisno o vidljivim karticama
     document.querySelectorAll('.city-section').forEach(section => {
       const visible = section.querySelectorAll('.catalog-card[style=""], .catalog-card:not([style])').length;
       const anyVisible = Array.from(section.querySelectorAll('.catalog-card[data-tags]')).some(c => c.style.display !== 'none');
@@ -138,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (header) header.style.display = anyVisible ? '' : 'none';
     });
 
-    // Empty state
+    // Prikaz kad nema rezultata
     const empty = document.getElementById('catalogEmpty');
     if (empty) empty.style.display = totalVisible === 0 ? '' : 'none';
   }
@@ -147,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
   window.initCatalogFilters = initCatalogFilters;
   initCatalogFilters();
 
-  // ─── LIGHTBOX
+  // ─── LIGHTBOX (galerija slika preko cijelog ekrana)
   const lightbox = document.getElementById('lightbox');
   if (!lightbox) return;
 
@@ -184,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (lbPrev) lbPrev.disabled = lbIndex === 0;
     if (lbNext) lbNext.disabled = lbIndex === lbImages.length - 1;
 
-    // Thumbnails
+    // Thumbnail sličice
     if (lbThumbs) {
       lbThumbs.innerHTML = '';
       lbImages.forEach((src, i) => {
@@ -203,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function () {
   lbPrev.addEventListener('click', () => { if (lbIndex > 0) { lbIndex--; lbRender(); } });
   lbNext.addEventListener('click', () => { if (lbIndex < lbImages.length - 1) { lbIndex++; lbRender(); } });
 
-  // Keyboard navigation
+  // Navigacija tipkovnicom
   document.addEventListener('keydown', (e) => {
     if (!lightbox.classList.contains('open')) return;
     if (e.key === 'Escape') lbClose_fn();
@@ -211,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (e.key === 'ArrowRight' && lbIndex < lbImages.length - 1) { lbIndex++; lbRender(); }
   });
 
-  // Touch swipe
+  // Touch swipe za mobitel
   let touchStartX = 0;
   lightbox.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
   lightbox.addEventListener('touchend', (e) => {
@@ -222,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }, { passive: true });
 
-  // Expose for inline catalog script
+  // Izlaz za inline skriptu kataloga
   window.lbOpen = lbOpen;
 
   // ─── prefers-reduced-motion

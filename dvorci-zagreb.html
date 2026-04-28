@@ -3,22 +3,23 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Katalog dvoraca — L-et-A dvorci na napuhavanje</title>
-<meta name="description" content="Katalog dvoraca na napuhavanje — više od 50 dvoraca za Zagreb i Rijeku. Pregledajte sve dvorce po uzrastu i pronađite savršeni dvorac za rođendan, proslavu ili priredbu vašeg djeteta. Veliki izbor dvoraca svih veličina." />
-<meta name="keywords" content="katalog dvoraca, katalog dvoraca na napuhavanje, popis dvoraca, izbor dvoraca, svi dvorci, ponuda dvoraca, dvorci, dvorac, dvoraca, dvorci na napuhavanje, dvorci Zagreb, dvorci Rijeka, dvorci u Zagrebu, dvorci u Rijeci, dvorci za rođendan, dvorci za rođendane, dvorci za djecu, dvorci za dječji rođendan, dvorci za proslavu, dvorci za priredbu, dvorci za zabavu, dvorci s bazenom, dvorci s toboganom, veliki dvorci, mali dvorci, dvorci za maleniše, dvorci za starije, dječji dvorci, povoljni dvorci, najam dvoraca, iznajmljivanje dvoraca, najam dvorca, najam dvoraca Zagreb, najam dvoraca Rijeka, iznajmljivanje dvoraca Zagreb, iznajmljivanje dvoraca Rijeka, dvorci po uzrastu, dvorci dimenzije, cijene dvoraca, napuhanci katalog, napuhanci Zagreb, napuhanci Rijeka, napuhanac Zagreb, napuhanac Rijeka" />
+<title>Dvorci Zagreb — najam dvoraca na napuhavanje | L-et-A</title>
+<meta name="description" content="Više od 30 dvoraca na napuhavanje za najam u Zagrebu i okolnim županijama. Filtriraj po uzrastu, pogledaj cijene i dimenzije, pronađi savršeni dvorac za rođendan u Zagrebu." />
+<meta name="keywords" content="dvorci Zagreb, dvorci u Zagrebu, dvorci na napuhavanje Zagreb, najam dvoraca Zagreb, iznajmljivanje dvoraca Zagreb, dvorac Zagreb, najam dvorca Zagreb, dvorci za rođendan Zagreb, dvorci za djecu Zagreb, dvorci za proslavu Zagreb, dvorci za priredbu Zagreb, dvorac za rođendan Zagreb, jeftini dvorci Zagreb, povoljni dvorci Zagreb, veliki dvorci Zagreb, mali dvorci Zagreb, dvorci s bazenom Zagreb, dvorci s toboganom Zagreb, napuhanci Zagreb, napuhanac Zagreb, najam napuhanaca Zagreb, dvorci grad Zagreb, dvorci okolica Zagreba, katalog dvoraca Zagreb" />
+<link rel="canonical" href="dvorci-zagreb.html" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap&subset=latin-ext" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
+<body data-city="zagreb">
 
 <nav class="navbar" id="navbar" aria-label="Glavna navigacija">
   <a href="index.html" class="nav-logo">L<span>-et-</span>A</a>
   <ul class="nav-links" id="navLinks">
     <li><a href="index.html">Početna</a></li>
-    <li><a href="katalog.html#zagreb" class="active">Dvorci Zagreb</a></li>
-    <li><a href="katalog.html#rijeka">Dvorci Rijeka</a></li>
+    <li><a href="dvorci-zagreb.html" class="active">Dvorci Zagreb</a></li>
+    <li><a href="dvorci-rijeka.html">Dvorci Rijeka</a></li>
     <li><a href="uvjeti.html">Uvjeti</a></li>
     <li><a href="kontakt.html" class="btn-nav">Kontaktiraj nas</a></li>
   </ul>
@@ -33,8 +34,8 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
       Natrag na početnu
     </a>
-    <h1>Katalog <span class="accent">dvoraca</span></h1>
-    <p>Svi naši dvorci na jednom mjestu — pronađi savršeni za svoju proslavu.</p>
+    <h1>Dvorci <span class="accent">Zagreb</span></h1>
+    <p>Svi naši Zagreb dvorci — pronađi savršeni za svoju proslavu.</p>
   </div>
 </header>
 
@@ -97,8 +98,8 @@
       <h4>Navigacija</h4>
       <ul class="footer-links">
         <li><a href="index.html">Početna</a></li>
-        <li><a href="katalog.html#zagreb">Dvorci Zagreb</a></li>
-        <li><a href="katalog.html#rijeka">Dvorci Rijeka</a></li>
+        <li><a href="dvorci-zagreb.html">Dvorci Zagreb</a></li>
+        <li><a href="dvorci-rijeka.html">Dvorci Rijeka</a></li>
         <li><a href="uvjeti.html">Uvjeti najma</a></li>
         <li><a href="kontakt.html">Kontaktiraj nas</a></li>
       </ul>
@@ -106,8 +107,8 @@
     <div class="footer-col">
       <h4>Lokacije</h4>
       <ul class="footer-links">
-        <li><a href="kontakt.html#zagreb">Zagreb</a></li>
-        <li><a href="kontakt.html#rijeka">Rijeka</a></li>
+        <li><a href="kontakt-zagreb.html">Zagreb</a></li>
+        <li><a href="kontakt-rijeka.html">Rijeka</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -145,7 +146,7 @@
 <script>
 document.getElementById('footerYear').textContent = new Date().getFullYear();
 
-// ─── HELPERS ───────────────────────────────────────────────────────────────
+// ─── POMOĆNE FUNKCIJE ─────────────────────────────────────────────────────
 
 function dimFormatted(dim) {
   var withoutUnit = dim.replace(/ m$/, '');
@@ -162,7 +163,7 @@ function imgs(city, id, count, special) {
   var base = 'images/dvorci/' + city + '/';
   function pad(n) { return String(n).padStart(2, '0'); }
   if (special) {
-    // Rijeka dvorac 12 has naming: dvorac_12_01_01.jpg
+    // Rijeka dvorac 12 ima naming: dvorac_12_01_01.jpg
     return Array.from({length: count}, function(_, i) {
       return base + 'dvorac_' + id + '_01_' + pad(i + 1) + '.jpg';
     });
@@ -172,7 +173,7 @@ function imgs(city, id, count, special) {
   });
 }
 
-// ─── CASTLE DATA ───────────────────────────────────────────────────────────
+// ─── PODACI O DVORCIMA ────────────────────────────────────────────────────
 
 var ZAGREB = [
   { id:'01', cijena:45,  dim:'4 × 4,8 × 3,35 m',    dob:8,  gallery:imgs('Zagreb','01',6), tags:['zagreb','do8'] },
@@ -239,7 +240,7 @@ var RIJEKA = [
   { id:'34', cijena:60,  dim:'7 × 4 × 4 m',         dob:null, gallery:imgs('Rijeka','34',5), tags:['rijeka'], paket:'1,7 × 0,9 m' },
 ];
 
-// ─── CARD BUILDER ──────────────────────────────────────────────────────────
+// ─── GRAĐENJE KARTICE DVORCA ──────────────────────────────────────────────
 
 function dobLabel(dob) {
   if (dob === null || dob === undefined) return null;
@@ -258,7 +259,7 @@ function makeCard(d, city, index) {
   var dLabel    = dobLabel(d.dob);
   var count     = d.gallery.length;
 
-  // First 4 cards in each city load eagerly (above the fold), rest lazy
+  // Prve 4 kartice u svakom gradu se učitavaju odmah, ostale lazy
   var loadingAttr = index < 4 ? 'eager' : 'lazy';
 
   var badgeHtml = d.badge
@@ -270,7 +271,7 @@ function makeCard(d, city, index) {
         dLabel +
       '</div>' : '';
 
-  // Hover navigation arrows (only if more than 1 image)
+  // Strelice za navigaciju (samo ako ima više od 1 slike)
   var navHtml = '';
   var dotsHtml = '';
   if (count > 1) {
@@ -319,17 +320,17 @@ function makeCard(d, city, index) {
         '<span class="catalog-price-unit">&euro;</span>' +
       '</div>' +
       '<p class="catalog-price-sub">cjelodnevni najam</p>' +
-      '<a href="kontakt.html?dvorac=' + cityClass + '-' + d.id + '#' + cityClass + '" class="btn-catalog">Rezerviraj</a>' +
+      '<a href="kontakt-' + cityClass + '.html?dvorac=' + cityClass + '-' + d.id + '" class="btn-catalog">Rezerviraj</a>' +
     '</div>' +
   '</article>';
 }
 
-// ─── RENDER ────────────────────────────────────────────────────────────────
+// ─── ISCRTAVANJE KARTICA U KATALOGU ───────────────────────────────────────
 
 document.getElementById('gridZagreb').innerHTML = ZAGREB.map(function(d, i) { return makeCard(d, 'Zagreb', i); }).join('');
 document.getElementById('gridRijeka').innerHTML = RIJEKA.map(function(d, i) { return makeCard(d, 'Rijeka', i); }).join('');
 
-// ─── HOVER PREVIEW — prev/next na karticama ───────────────────────────────
+// ─── HOVER PREGLED — prev/next strelice na karticama ─────────────────────
 document.addEventListener('click', function(e) {
   var navBtn = e.target.closest('.catalog-image-nav');
   if (!navBtn) return;
@@ -350,7 +351,7 @@ document.addEventListener('click', function(e) {
   });
 }, true);
 
-// Touch swipe za slike dvoraca — obje slike side-by-side, nema gapa
+// Swipe između slika dvorca — obje slike jedna do druge, bez praznine
 (function() {
   var startX = 0, startY = 0;
   var target = null, origImg = null, ghost = null;
@@ -434,7 +435,7 @@ document.addEventListener('click', function(e) {
       ghostReady = true;
     }
 
-    // Edge resistance — kraj galerije, al isti smjer kao i ghost
+    // Gumeni otpor — na kraju galerije, isti smjer kao ghost
     var current = parseInt(target.dataset.current || 0, 10);
     var atEdge  = (current === 0 && dx > 0) || (current === gallery.length - 1 && dx < 0);
 
@@ -449,7 +450,7 @@ document.addEventListener('click', function(e) {
     target  = null;
     var dx  = e.changedTouches[0].clientX - startX;
 
-    // Snap-back
+    // Vrati sliku natrag (premali pomak)
     if (!isHoriz || Math.abs(dx) < 40 || !ghostReady) {
       origImg.style.transition = 'transform 0.26s ease';
       origImg.style.transform  = 'translateX(0)';
@@ -551,18 +552,21 @@ if (window.initCatalogFilters) window.initCatalogFilters();
   });
 })();
 
-// ─── HASH-BASED CITY FILTER ────────────────────────────────────────────────
+// ─── FILTER PO GRADU NA TEMELJU URL HASHA ─────────────────────────────────
 function applyCityHash() {
-  var hash = window.location.hash.replace('#', '').toLowerCase();
+  // Ako body ima data-city atribut (na zasebnim stranicama), koristi to
+  // Inače čitaj hash iz URL-a (fallback)
+  var forcedCity = document.body.dataset.city;
+  var hash = (forcedCity || window.location.hash.replace('#', '')).toLowerCase();
 
   var secZagreb = document.getElementById('sectionZagreb');
   var secRijeka = document.getElementById('sectionRijeka');
 
-  // Reset both sections visible
+  // Pokaži obje gradske sekcije
   if (secZagreb) secZagreb.style.display = '';
   if (secRijeka) secRijeka.style.display = '';
 
-  // Reset filter chips to "Svi uzrasti"
+  // Resetiraj filter chipove na „Svi uzrasti"
   var chips = document.querySelectorAll('.filter-chip');
   chips.forEach(function(c) { c.classList.remove('active'); });
   var allChip = document.querySelector('.filter-chip[data-filter="all"]');
@@ -588,17 +592,17 @@ function applyCityHash() {
   // CTA "Kontaktiraj nas" na dnu prati grad kojeg gleda
   var ctaContact = document.querySelector('.catalog-cta a.btn-primary');
   if (ctaContact) {
-    if (hash === 'zagreb')      ctaContact.href = 'kontakt.html#zagreb';
-    else if (hash === 'rijeka') ctaContact.href = 'kontakt.html#rijeka';
+    if (hash === 'zagreb')      ctaContact.href = 'kontakt-zagreb.html';
+    else if (hash === 'rijeka') ctaContact.href = 'kontakt-rijeka.html';
     else                         ctaContact.href = 'kontakt.html';
   }
 
   if (hash === 'zagreb' || hash === 'rijeka') {
-    // Hide the other city section
+    // Sakrij drugu gradsku sekciju
     var hideSection = hash === 'zagreb' ? secRijeka : secZagreb;
     if (hideSection) hideSection.style.display = 'none';
 
-    // Update page header
+    // Ažuriraj naslov stranice
     var h1 = document.querySelector('.page-header h1');
     if (h1) {
       var cityName = hash === 'zagreb' ? 'Zagreb' : 'Rijeka';
@@ -611,13 +615,13 @@ function applyCityHash() {
         : 'Svi naši Rijeka dvorci — pronađi savršeni za svoju proslavu.';
     }
 
-    // Update navbar active state
+    // Označi aktivni link u navbaru
     document.querySelectorAll('.nav-links a').forEach(function(a) {
       a.classList.remove('active');
-      if (a.getAttribute('href') === 'katalog.html#' + hash) a.classList.add('active');
+      if (a.getAttribute('href') === 'dvorci-' + hash + '.html') a.classList.add('active');
     });
 
-    // Update count bar
+    // Ažuriraj traku s brojem dvoraca
     var data = hash === 'zagreb' ? ZAGREB : RIJEKA;
     var countEl = document.getElementById('catalogCount');
     if (countEl) countEl.innerHTML = '<strong>' + data.length + '</strong> dvoraca';

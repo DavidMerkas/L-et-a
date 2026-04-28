@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════
-   L-et-A — Shared Stylesheet
-   Used across: index, katalog, uvjeti, kontakt
+   L-et-A — Zajednički CSS
+   Korišten na: index, katalog, uvjeti, kontakt
    ═══════════════════════════════════════════════ */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,6 +30,7 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 90px;
 }
 
 body {
@@ -53,7 +54,7 @@ img { max-width: 100%; display: block; }
 button { font-family: inherit; }
 a { color: inherit; }
 
-/* ─── NAVBAR ─── */
+/* ─── NAVIGACIJA ─── */
 .navbar {
   position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
   width: calc(100% - 32px); max-width: 1140px;
@@ -259,7 +260,7 @@ a { color: inherit; }
   flex-shrink: 0;
 }
 
-/* Floating shapes */
+/* Plutajući oblici */
 .shape {
   position: absolute; border-radius: 50%;
   opacity: 0.55; pointer-events: none;
@@ -283,7 +284,7 @@ a { color: inherit; }
   50% { opacity: 0.4; transform: scale(0.85) rotate(20deg); }
 }
 
-/* ─── PAGE HEADER (used on subpages: catalog, terms, contact) ─── */
+/* ─── ZAGLAVLJE PODSTRANICA (katalog, uvjeti, kontakt) ─── */
 .page-header {
   padding: 150px 24px 70px;
   text-align: center;
@@ -355,7 +356,7 @@ a { color: inherit; }
 }
 .breadcrumb-row .breadcrumb { margin-bottom: 0; }
 
-/* ─── SECTION COMMON ─── */
+/* ─── ZAJEDNIČKI STILOVI SEKCIJA ─── */
 section { padding: 76px 24px; position: relative; }
 .section-inner { max-width: 1140px; margin: 0 auto; position: relative; z-index: 2; }
 .section-tag {
@@ -382,7 +383,7 @@ section { padding: 76px 24px; position: relative; }
   display: flex; flex-direction: column; align-items: center;
 }
 
-/* Blob decorations */
+/* Dekorativne mrlje */
 .blob {
   position: absolute; border-radius: 50%;
   filter: blur(60px);
@@ -390,7 +391,7 @@ section { padding: 76px 24px; position: relative; }
   z-index: 0;
 }
 
-/* Fade-in */
+/* Fade-in animacija */
 .fade-up {
   opacity: 0;
   transform: translateY(32px);
@@ -403,7 +404,7 @@ section { padding: 76px 24px; position: relative; }
   html { scroll-behavior: auto; }
 }
 
-/* ─── HOW IT WORKS ─── */
+/* ─── KAKO FUNKCIONIRA ─── */
 .hiw { background: #fff; overflow: hidden; }
 .hiw .blob-1 { width: 400px; height: 400px; background: rgba(167,139,250,0.18); top: -100px; left: -100px; }
 .hiw .blob-2 { width: 320px; height: 320px; background: rgba(252,211,77,0.2); bottom: -80px; right: -60px; }
@@ -446,7 +447,7 @@ section { padding: 76px 24px; position: relative; }
 .hiw-card h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 10px; color: var(--text); }
 .hiw-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; font-weight: 600; }
 
-/* ─── CATALOG ─── */
+/* ─── KATALOG ─── */
 .catalog { background: var(--bg); overflow: hidden; }
 .catalog::before {
   content: ''; position: absolute; inset: 0;
@@ -484,7 +485,7 @@ section { padding: 76px 24px; position: relative; }
 .catalog-card-5 { background: linear-gradient(145deg, #EC4899, #BE185D); }
 .catalog-card-6 { background: linear-gradient(145deg, #F59E0B, #B45309); }
 
-/* Image area on cards (for when user adds photos) */
+/* Prostor za sliku na kartici */
 .catalog-image {
   width: 100%;
   aspect-ratio: 4/3;
@@ -554,7 +555,7 @@ section { padding: 76px 24px; position: relative; }
 }
 .btn-catalog:hover { background: #fff; color: var(--purple); transform: scale(1.02); }
 
-/* Catalog filter chips */
+/* Filter chipovi u katalogu */
 .catalog-filters {
   display: flex; flex-wrap: wrap; gap: 10px;
   justify-content: center;
@@ -608,7 +609,7 @@ section { padding: 76px 24px; position: relative; }
 }
 .btn-outline:hover { transform: translateY(-3px); box-shadow: 0 8px 0 var(--purple), 0 12px 28px rgba(124,58,237,0.3); }
 
-/* ─── WHY US ─── */
+/* ─── ZAŠTO BAŠ MI ─── */
 .why { background: #fff; overflow: hidden; }
 .why .blob-1 { width: 360px; height: 360px; background: rgba(252,211,77,0.22); top: 0; right: -100px; }
 .why .blob-2 { width: 280px; height: 280px; background: rgba(167,139,250,0.18); bottom: 0; left: -60px; }
@@ -640,7 +641,7 @@ section { padding: 76px 24px; position: relative; }
 .why-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
 .why-card p { color: var(--muted); font-size: 0.93rem; line-height: 1.6; font-weight: 600; }
 
-/* ─── AREAS ─── */
+/* ─── LOKACIJE ─── */
 .areas {
   background: linear-gradient(180deg, var(--bg) 0%, #FEF3C7 100%);
   overflow: hidden;
@@ -758,7 +759,7 @@ section { padding: 76px 24px; position: relative; }
 }
 .btn-area-green:hover { box-shadow: 0 6px 0 #047857, 0 12px 30px rgba(16,185,129,0.45); }
 
-/* ─── CONTACT ─── */
+/* ─── KONTAKT ─── */
 .contact {
   background:
     radial-gradient(ellipse at top right, rgba(167,139,250,0.25), transparent 50%),
@@ -921,7 +922,7 @@ section { padding: 76px 24px; position: relative; }
 .btn-submit:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--purple-d), 0 4px 16px rgba(124,58,237,0.3); }
 .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
 
-/* ─── TERMS PAGE ─── */
+/* ─── STRANICA UVJETI ─── */
 .terms { background: #fff; }
 .terms .section-inner { max-width: 1100px; }
 .terms-grid {
@@ -996,7 +997,7 @@ section { padding: 76px 24px; position: relative; }
 }
 .terms-block strong { color: var(--purple-d); font-weight: 800; }
 
-/* ─── TERMS — varijantni layouti ─── */
+/* ─── UVJETI — različiti layouti ─── */
 .terms-section-title {
   font-size: 1.05rem;
   font-weight: 800;
@@ -1090,7 +1091,7 @@ section { padding: 76px 24px; position: relative; }
 }
 .terms-image-placeholder svg { width: 48px; height: 48px; opacity: 0.5; }
 
-/* Compare grid — vreca | dvorac */
+/* Usporedba — vreca | dvorac */
 .terms-compare {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -1137,7 +1138,7 @@ section { padding: 76px 24px; position: relative; }
   opacity: 0.75;
 }
 
-/* Highlight — sigurnost (purple gradient) */
+/* Istaknuti blok — sigurnost (ljubičasti gradijent) */
 .terms-highlight {
   background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
   border-radius: var(--radius-lg);
@@ -1209,7 +1210,7 @@ section { padding: 76px 24px; position: relative; }
 }
 .terms-highlight strong { color: #FDE68A; font-weight: 800; }
 
-/* Price cards row */
+/* Red kartica s cijenama */
 .terms-prices-wrap {
   background: var(--bg);
   border-radius: var(--radius-lg);
@@ -1280,7 +1281,7 @@ section { padding: 76px 24px; position: relative; }
 }
 .terms-prices-extra strong { color: var(--purple-d); font-weight: 800; }
 
-/* Location cards */
+/* Kartice lokacija */
 .terms-locations-title {
   font-size: 1.5rem;
   margin-bottom: 22px;
@@ -1339,7 +1340,7 @@ section { padding: 76px 24px; position: relative; }
   .terms-locations { grid-template-columns: 1fr; }
 }
 
-/* ─── FOOTER ─── */
+/* ─── PODNOŽJE ─── */
 .footer {
   background: #0F0A1E;
   color: rgba(255,255,255,0.7);
@@ -1393,7 +1394,7 @@ section { padding: 76px 24px; position: relative; }
   position: relative;
 }
 
-/* ─── RESPONSIVE ─── */
+/* ─── RESPONSIVE (prilagodba ekranima) ─── */
 @media (max-width: 960px) {
   .footer-inner { grid-template-columns: 1fr 1fr; }
   .contact-grid { grid-template-columns: 1fr; gap: 36px; }
@@ -1444,17 +1445,17 @@ section { padding: 76px 24px; position: relative; }
   .terms-block { padding: 28px 22px; }
 }
 
-/* Focus rings */
+/* Focus prsteni (pristupačnost) */
 a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
   outline: 3px solid var(--yellow);
   outline-offset: 3px;
   border-radius: 8px;
 }
 
-/* ─── CONTAINER (shared max-width wrapper) ─── */
+/* ─── KONTEJNER (zajednički wrapper za max-width) ─── */
 .container { max-width: 1140px; margin: 0 auto; }
 
-/* ─── CATALOG CARD OVERRIDES (image-first, white body) ─── */
+/* ─── PREPISIVANJE STILOVA KATALOŠKE KARTICE (slika prva, bijelo tijelo) ─── */
 .catalog-card {
   background: #fff;
   color: var(--text);
@@ -1473,7 +1474,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   transform: scale(1.05);
 }
 
-/* City section headers */
+/* Zaglavlja sekcija po gradu */
 .city-section { margin-bottom: 60px; }
 .city-section-header {
   display: flex; align-items: center; gap: 16px;
@@ -1490,7 +1491,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   padding: 5px 14px; border-radius: 20px;
 }
 
-/* City badge on card */
+/* Oznaka grada na kartici */
 .city-badge {
   display: inline-flex; align-items: center; gap: 5px;
   padding: 4px 12px; border-radius: 20px;
@@ -1502,7 +1503,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .city-badge-rijeka { background: rgba(249,115,22,0.12); color: var(--orange-d); }
 .city-badge svg { width: 11px; height: 11px; }
 
-/* Gallery button overlay */
+/* Gumb galerije preko slike */
 .gallery-btn {
   position: absolute; bottom: 10px; right: 10px;
   background: rgba(0,0,0,0.58);
@@ -1520,7 +1521,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .gallery-btn:hover { background: rgba(0,0,0,0.78); }
 .gallery-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
 
-/* Card body text — dark on white */
+/* Tekst u tijelu kartice — taman na bijeloj pozadini */
 .catalog-card h3 { color: var(--text); }
 .catalog-meta-item { color: var(--muted); opacity: 1; }
 .catalog-price { color: var(--purple); }
@@ -1630,7 +1631,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .lb-thumb { width: 48px; height: 36px; }
 }
 
-/* ─── MAP SECTION ─── */
+/* ─── SEKCIJA MAPE ─── */
 .map-section {
   background: #fff;
   overflow: hidden;
@@ -1648,14 +1649,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .map-embed { height: 300px; }
 }
 
-/* ─── CONTACT PAGE FIXES ─── */
+/* ─── ISPRAVCI ZA KONTAKT STRANICU ─── */
 .contact-steps h2, .contact-form h2 {
   font-size: 1.5rem;
   color: #fff;
   margin-bottom: 28px;
 }
 
-/* ─── INFO CARD (simplified contact info blocks) ─── */
+/* ─── INFO KARTICA (pojednostavljeni kontakt blokovi) ─── */
 .info-card {
   background: rgba(255,255,255,0.07);
   border: 2px solid rgba(255,255,255,0.12);
@@ -1673,7 +1674,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .info-card a:hover { color: #C4B5FD; }
 
-/* ─── KONTAKT FORM LABEL STYLE (when using <label> directly) ─── */
+/* ─── STIL OZNAKA U KONTAKT FORMI ─── */
 .contact-form label {
   display: flex; flex-direction: column; gap: 6px;
   font-size: 0.82rem; font-weight: 800;
@@ -1713,7 +1714,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .form-full { grid-column: 1 / -1; }
 
-/* ─── SURPRISE BUTTON ─── */
+/* ─── GUMB IZNENAĐENJE ─── */
 .surprise-bar {
   display: flex; justify-content: center;
   margin-bottom: 44px;
@@ -1734,7 +1735,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .btn-surprise:active { transform: translateY(2px); box-shadow: 0 3px 0 var(--orange-d); }
 .btn-surprise svg { width: 22px; height: 22px; flex-shrink: 0; }
 
-/* Spotlight animation on the randomly picked card */
+/* Spotlight animacija na nasumično odabranoj kartici */
 @keyframes card-spotlight {
   0%   { box-shadow: 0 8px 0 rgba(0,0,0,0.13), 0 0 0 0 rgba(249,115,22,0.8); transform: translateY(0) scale(1); }
   20%  { box-shadow: 0 18px 0 rgba(0,0,0,0.13), 0 0 0 14px rgba(249,115,22,0.5); transform: translateY(-12px) scale(1.03); }
@@ -1747,7 +1748,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   position: relative; z-index: 5;
 }
 
-/* ─── CATALOG COUNT BAR ─── */
+/* ─── TRAKA S BROJEM DVORACA U KATALOGU ─── */
 .catalog-count-bar {
   text-align: right;
   font-size: 0.88rem; font-weight: 700;
@@ -1756,13 +1757,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .catalog-count-bar strong { color: var(--purple); }
 
-/* ─── TERMS PAGE - PAGE HEADER FIX ─── */
+/* ─── ISPRAVAK ZAGLAVLJA NA UVJETIMA ─── */
 .page-header .page-header-inner {
   max-width: 800px; margin: 0 auto;
   position: relative; z-index: 2;
 }
 
-/* ─── HERO 2-COLUMN LAYOUT ─── */
+/* ─── HERO LAYOUT U DVA STUPCA ─── */
 .hero-layout {
   display: flex;
   align-items: center;
@@ -1853,7 +1854,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .hero-img-badge { font-size: 0.76rem; padding: 7px 14px; top: -14px; }
 }
 
-/* ─── CONTACT ACTION CARDS (kontakt.html replace form) ─── */
+/* ─── KONTAKT AKCIJSKE KARTICE (zamjena za formu) ─── */
 .contact-actions { display: flex; flex-direction: column; gap: 20px; }
 .contact-actions h2 {
   font-size: 1.55rem; font-weight: 800; color: #fff;
@@ -1970,9 +1971,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .contact-action-grid { grid-template-columns: 1fr; }
 }
 
-/* ─── CATALOG: SKELETON LOADER + HOVER PREVIEW ─── */
+/* ─── KATALOG: SKELETON LOADER + HOVER PREGLED ─── */
 
-/* Skeleton shimmer placeholder while image loads */
+/* Skeleton placeholder dok se slika učitava */
 .catalog-image {
   position: relative;
   overflow: hidden;
@@ -1996,7 +1997,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   100% { background-position: -200% 0; }
 }
 
-/* Hover preview navigation arrows */
+/* Strelice za navigaciju u hover pregledu */
 .catalog-image-nav {
   position: absolute;
   top: 50%; transform: translateY(-50%);
@@ -2023,12 +2024,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   transform: translateY(-50%) scale(0.95);
 }
 
-/* Disable zoom-on-hover when cycling images so preview is clearer */
+/* Isključi zoom-on-hover dok se slike izmjenjuju */
 .catalog-card:hover .catalog-image img {
   transform: none;
 }
 
-/* Image dot indicator */
+/* Točkasti indikator slike */
 .catalog-image-dots {
   position: absolute;
   bottom: 12px; left: 50%;
@@ -2055,18 +2056,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border-radius: 100px;
 }
 
-/* On touch devices OR small screens, always show arrows + dots + gallery btn */
+/* Na touch uređajima i malim ekranima — uvijek prikazuj strelice, točke i gumb galerije */
 @media (hover: none), (max-width: 768px) {
   .catalog-image-nav { opacity: 1; pointer-events: auto; }
   .catalog-image-dots { opacity: 1; }
   .gallery-btn { opacity: 1; }
 }
 
-/* Prevent blue tap highlight flash on mobile */
+/* Spriječi plavi tap highlight na mobitelu */
 .catalog-image,
 .catalog-image-nav { -webkit-tap-highlight-color: transparent; }
 
-/* ─── CITY CONTACT PANELS (kontakt.html redesign) ─── */
+/* ─── PANELI ZA KONTAKT GRADA ─── */
 .city-sections-wrapper {
   display: flex;
   align-items: stretch;
@@ -2146,7 +2147,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .contact-map-title svg { flex-shrink: 0; opacity: 0.7; }
 
-/* ─── HOW TO BOOK SECTION (kontakt.html) ─── */
+/* ─── SEKCIJA „KAKO REZERVIRATI" ─── */
 .contact-how-section {
   padding: 60px 24px;
   background: var(--bg);
@@ -2162,7 +2163,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   flex-wrap: wrap;
 }
 
-/* ─── TERMS LOCATION PANELS (uvjeti.html) ─── */
+/* ─── PANELI LOKACIJA NA UVJETIMA (uvjeti.html) ─── */
 .terms-locations-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
